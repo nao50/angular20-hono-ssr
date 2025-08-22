@@ -1,4 +1,3 @@
-// import { Hono } from 'hono';
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
@@ -15,17 +14,6 @@ export const app = new OpenAPIHono()
   .use(requestId())
   .use(secureHeaders())
   .route('/api/v1', health)
-
-/**
- * My API endpoint
- */
-app.get('/api/v1/health', async (c) => {
-  return c.json({
-    status: 'ok',
-    message: 'Server is running',
-    timestamp: new Date().toISOString(),
-  });
-});
 
 /**
  * Serve static files from /browser
