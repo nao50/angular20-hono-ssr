@@ -35,7 +35,6 @@ export class Csr implements OnInit {
       this.health.set(data!);
     });
 
-    // const result = await parseResponse(hc<AppType>('').api.v1.health.$get())
     const data = await hc<AppType>('').api.v1.health.$get();
     if (data.ok) {
       this.health2.set(await data.json());

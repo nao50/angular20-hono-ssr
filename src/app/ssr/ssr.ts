@@ -35,7 +35,7 @@ export class Ssr {
     );
   
   platformId = inject(PLATFORM_ID);
-  stateKey = makeStateKey<string>('BODY_KEY');
+  stateKey = makeStateKey<z.infer<typeof healthSchema>>('BODY_KEY');
   transferState = inject(TransferState);
 
   async ngOnInit() {
@@ -43,20 +43,13 @@ export class Ssr {
       this.health.set(data!);
     });
 
-    // const result = await parseResponse(hc<AppType>('').api.v1.health.$get())
-    // const data = await hc<AppType>(environment.apiUrl).api.v1.health.$get();
-    // if (data.ok) {
-    //   console.log('Health data from Hono client:');
-    //   this.health2.set(await data.json());
-    // }
-
     if(isPlatformServer(this.platformId)){
       const data = await hc<AppType>(environment.apiUrl).api.v1.health.$get();
       if (data.ok) {
         this.health2.set(await data.json());
-        this.transferState.set<any>(this.stateKey, this.health2());
+        this.transferState.set<z.infer<typeof healthSchema>>(this.stateKey, this.health2());
       }
     }
-    this.health2.set(this.transferState.get<any>(this.stateKey, {}));
+    this.health2.set(this.transferState.get<z.infer<typeof healthSchema>>(this.stateKey, {status: '', message: '', timestamp: new Date().toISOString() }));
   }
 }
