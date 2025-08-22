@@ -1,6 +1,6 @@
 import { Component, signal, OnInit, inject, makeStateKey, TransferState, PLATFORM_ID } from '@angular/core';
 import { httpResource } from "@angular/common/http";
-import { JsonPipe, Location, isPlatformServer } from '@angular/common';
+import { JsonPipe, isPlatformServer } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -26,7 +26,6 @@ import { environment } from '../../environments/environment';
 })
 export class Ssr {
   #http = inject(HttpClient);
-  location = inject(Location);
   health = signal<z.infer<typeof healthSchema>>({status: '', message: '', timestamp: new Date().toISOString() });
   health2 = signal<z.infer<typeof healthSchema>>({status: '', message: '', timestamp: new Date().toISOString() });
   healthResource = httpResource(
