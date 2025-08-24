@@ -1,8 +1,7 @@
 import { Component, signal, OnInit, inject, makeStateKey, TransferState, PLATFORM_ID } from '@angular/core';
-import { httpResource } from "@angular/common/http";
+import { HttpClient, httpResource } from "@angular/common/http";
 import { JsonPipe, isPlatformServer } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 import { hc, parseResponse } from 'hono/client'
 import { AppType } from '../../server/index'
